@@ -26,13 +26,15 @@
 + (NSDictionary *) MR_autoMigrationOptions;
 {
     return @{ NSMigratePersistentStoresAutomaticallyOption : @YES,
-              NSInferMappingModelAutomaticallyOption : @YES };
+              NSInferMappingModelAutomaticallyOption : @YES,
+              NSSQLitePragmasOption: @{@"journal_mode": @"WAL"}};
 }
 
 + (NSDictionary *) MR_manualMigrationOptions;
 {
     return @{ NSMigratePersistentStoresAutomaticallyOption : @YES,
-              NSInferMappingModelAutomaticallyOption : @NO };
+              NSInferMappingModelAutomaticallyOption : @NO,
+              NSSQLitePragmasOption: @{@"journal_mode": @"DELETE"}};
 }
 
 - (BOOL) MR_shouldDeletePersistentStoreOnModelMismatch;

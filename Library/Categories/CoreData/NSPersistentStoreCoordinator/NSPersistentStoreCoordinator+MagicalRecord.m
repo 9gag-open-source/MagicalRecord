@@ -40,7 +40,7 @@ NSString * const MagicalRecordShouldDeletePersistentStoreOnModelMismatchKey = @"
                             [error code] == NSMigrationMissingSourceModelError ||
                             [error code] == NSPersistentStoreIncompatibleVersionHashError;
     
-    RLog(@"LOCAL_STORAGE",1,@"LOCAL_STORAGE",@"MR_reinitializeStoreAtURL\nStore Status\nURL: %@\nError code:%d\nisMigrationError: %d\nerror: %@", url, [error code], isMigrationError, error);
+    RLog(@"MAGICAL_RECORD_REINIT",1,@"LOCAL_STORAGE",@"MR_reinitializeStoreAtURL\nStore Status\nURL: %@\nError code:%d\nisMigrationError: %d\nerror: %@", url, [error code], isMigrationError, error);
     
     if ([[error domain] isEqualToString:NSCocoaErrorDomain] && isMigrationError)
     {
@@ -61,9 +61,14 @@ NSString * const MagicalRecordShouldDeletePersistentStoreOnModelMismatchKey = @"
         {
             // If we successfully added a store, remove the error that was initially created
             error = nil;
+            
+            RLog(@"MAGICAL_RECORD_REINIT_OK",1,@"LOCAL_STORAGE",@"MR_reinitializeStoreAtURL\nStore Status\nURL: %@\nError code:%d\nisMigrationError: %d\nerror: %@\nstore:%d", url, [error code], isMigrationError, error, store == nil);
+            
+        } else {
+            
+            RLog(@"MAGICAL_RECORD_REINIT_ERROR",1,@"LOCAL_STORAGE",@"MR_reinitializeStoreAtURL\nStore Status\nURL: %@\nError code:%d\nisMigrationError: %d\nerror: %@\nstore:%d", url, [error code], isMigrationError, error, store == nil);
         }
         
-        RLog(@"LOCAL_STORAGE",1,@"LOCAL_STORAGE",@"MR_reinitializeStoreAtURL\nStore Status\nURL: %@\nError code:%d\nisMigrationError: %d\nerror: %@\nstore:%d", url, [error code], isMigrationError, error, store == nil);
     }
 
     return store;
@@ -83,7 +88,7 @@ NSString * const MagicalRecordShouldDeletePersistentStoreOnModelMismatchKey = @"
                                                             options:options
                                                               error:&error];
         
-        RLog(@"LOCAL_STORAGE",1,@"LOCAL_STORAGE",@"MR_addSqliteStoreAtURL\nStore Status\nURL: %@\nShouldDeleteOnMismatch:%d\nStore:%d\noptions:%@\nerror: %@", url, [options MR_shouldDeletePersistentStoreOnModelMismatch], store == nil, options, error);
+        RLog(@"MAGICAL_RECORD_ADD_STORE",1,@"LOCAL_STORAGE",@"MR_addSqliteStoreAtURL\nStore Status\nURL: %@\nShouldDeleteOnMismatch:%d\nStore:%d\noptions:%@\nerror: %@", url, [options MR_shouldDeletePersistentStoreOnModelMismatch], store == nil, options, error);
         
         if ([options MR_shouldDeletePersistentStoreOnModelMismatch] && store == nil && error != nil)
         {
@@ -98,7 +103,7 @@ NSString * const MagicalRecordShouldDeletePersistentStoreOnModelMismatchKey = @"
     }
     @catch (NSException *exception)
     {
-        RLog(@"LOCAL_STORAGE",1,@"LOCAL_STORAGE",@"MR_addSqliteStoreAtURL\nUnable to setup store at URL: %@\nexception: %@", url, [exception description]);
+        RLog(@"MAGICAL_RECORD_ADD_STORE_EXCEPTION",1,@"LOCAL_STORAGE",@"MR_addSqliteStoreAtURL\nUnable to setup store at URL: %@\nexception: %@", url, [exception description]);
         [[exception description] MR_logToConsole];
     }
     return nil;

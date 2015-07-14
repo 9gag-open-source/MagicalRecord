@@ -152,7 +152,7 @@
         // If the file doesn't exist, that's OK — that's still a successful result!
         removeItemResult = removeItemResult && (itemResult || [removeItemError code] == NSFileNoSuchFileError);
     }
-    RLog(@"LOCAL_STORAGE",1,@"LOCAL_STORAGE",@"MR_removePersistentStoreFilesAtURL:\nStore Status\nURL: %@\nremoveItemResult: %d\nError code:%d\nerror: %@", url, [removeItemError code], removeItemResult, removeItemError);
+    RLog(@"MAGICAL_RECORD_REMOVE_PERSISTENT",1,@"LOCAL_STORAGE",@"MR_removePersistentStoreFilesAtURL:\nStore Status\nURL: %@\nremoveItemResult: %d\nError code:%d\nerror: %@", url, [removeItemError code], removeItemResult, removeItemError);
     return removeItemResult;
 }
 

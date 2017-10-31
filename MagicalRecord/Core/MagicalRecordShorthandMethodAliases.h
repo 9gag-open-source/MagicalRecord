@@ -1,6 +1,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import <MagicalRecord/MagicalRecordDeprecationMacros.h>
 #import <MagicalRecord/MagicalRecordXcode7CompatibilityMacros.h>
+#import <MagicalRecord/NSManagedObjectContext+MagicalSaves.h>
 
 @interface NSManagedObject (MagicalAggregationShortHand)
 
